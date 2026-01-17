@@ -429,9 +429,15 @@ label {
 }
 
 .note-content h1, .note-content h2, .note-content h3, .note-content h4 {
-  margin-top: var(--te-space-3);
+  margin-top: var(--te-space-4);
   margin-bottom: var(--te-space-2);
+  font-weight: var(--te-font-weight-medium);
 }
+
+.note-content h1 { font-size: var(--te-font-size-xl); }
+.note-content h2 { font-size: var(--te-font-size-lg); }
+.note-content h3 { font-size: var(--te-font-size-md); }
+.note-content h4 { font-size: var(--te-font-size-base); }
 
 .note-content h1:first-child, .note-content h2:first-child, .note-content h3:first-child {
   margin-top: 0;
@@ -446,12 +452,135 @@ label {
   padding-left: var(--te-space-4);
 }
 
+.note-content li {
+  margin-bottom: var(--te-space-1);
+}
+
+.note-content li > ul, .note-content li > ol {
+  margin-top: var(--te-space-1);
+  margin-bottom: 0;
+}
+
 .note-content pre {
-  margin: var(--te-space-2) 0;
+  margin: var(--te-space-3) 0;
+  padding: var(--te-space-3);
+  background: var(--te-bg-base);
+  border: 1px solid var(--te-border-color);
+  border-radius: var(--te-border-radius-sm);
+  overflow-x: auto;
 }
 
 .note-content code {
   font-size: var(--te-font-size-xs);
+}
+
+.note-content :not(pre) > code {
+  background: var(--te-bg-base);
+  padding: 0.125em 0.375em;
+  border-radius: var(--te-border-radius-sm);
+  border: 1px solid var(--te-border-color-subtle);
+}
+
+/* GFM Tables */
+.note-content table {
+  width: 100%;
+  margin: var(--te-space-3) 0;
+  border-collapse: collapse;
+  font-size: var(--te-font-size-xs);
+  font-family: var(--pico-font-family-monospace);
+}
+
+.note-content thead {
+  background: var(--te-bg-base);
+}
+
+.note-content th {
+  font-weight: var(--te-font-weight-medium);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--te-text-secondary);
+  padding: var(--te-space-2) var(--te-space-3);
+  text-align: left;
+  border-bottom: 2px solid var(--te-border-color);
+}
+
+.note-content td {
+  padding: var(--te-space-2) var(--te-space-3);
+  border-bottom: 1px solid var(--te-border-color-subtle);
+  vertical-align: top;
+}
+
+.note-content tbody tr:hover {
+  background: var(--te-bg-surface);
+}
+
+/* GFM Task Lists */
+.note-content ul.contains-task-list {
+  list-style: none;
+  padding-left: 0;
+}
+
+.note-content li.task-list-item {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--te-space-2);
+}
+
+.note-content li.task-list-item input[type="checkbox"] {
+  margin-top: 0.25em;
+  width: 1em;
+  height: 1em;
+}
+
+/* GFM Strikethrough */
+.note-content del {
+  color: var(--te-text-tertiary);
+  text-decoration: line-through;
+}
+
+/* Blockquotes */
+.note-content blockquote {
+  margin: var(--te-space-3) 0;
+  padding: var(--te-space-2) var(--te-space-3);
+  border-left: 3px solid var(--te-blue);
+  background: var(--te-bg-base);
+  color: var(--te-text-secondary);
+  font-style: italic;
+}
+
+.note-content blockquote p:last-child {
+  margin-bottom: 0;
+}
+
+/* Horizontal Rules */
+.note-content hr {
+  margin: var(--te-space-4) 0;
+  border: none;
+  border-top: 1px solid var(--te-border-color);
+}
+
+/* Images */
+.note-content img {
+  max-width: 100%;
+  height: auto;
+  border-radius: var(--te-border-radius-sm);
+  margin: var(--te-space-2) 0;
+}
+
+/* Links */
+.note-content a {
+  color: var(--te-blue);
+  text-decoration: none;
+}
+
+.note-content a:hover {
+  text-decoration: underline;
+}
+
+/* Strong/Bold */
+.note-content strong {
+  font-weight: var(--te-font-weight-bold);
+  color: var(--te-text-primary);
 }
 
 /* HTMX Indicators */

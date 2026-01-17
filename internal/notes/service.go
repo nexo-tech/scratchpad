@@ -7,6 +7,9 @@ import (
 	"strings"
 
 	"github.com/yuin/goldmark"
+	"github.com/yuin/goldmark/extension"
+	"github.com/yuin/goldmark/parser"
+	"github.com/yuin/goldmark/renderer/html"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
@@ -16,9 +19,24 @@ type Service struct {
 }
 
 func NewService(repo *Repo) *Service {
+	// Create goldmark with GFM extensions for better markdown support
+	md := goldmark.New(
+		goldmark.WithExtensions(
+			extension.GFM,         // GitHub Flavored Markdown (tables, strikethrough, autolinks, task lists)
+			extension.Typographer, // Smart quotes, dashes, etc.
+		),
+		goldmark.WithParserOptions(
+			parser.WithAutoHeadingID(), // Auto-generate heading IDs
+		),
+		goldmark.WithRendererOptions(
+			html.WithHardWraps(), // Convert newlines to <br>
+			html.WithUnsafe(),    // Allow raw HTML in markdown
+		),
+	)
+
 	return &Service{
 		repo: repo,
-		md:   goldmark.New(),
+		md:   md,
 	}
 }
 
