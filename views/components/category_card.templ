@@ -1,0 +1,20 @@
+package components
+
+import (
+	"fmt"
+	"scratchpad/views/models"
+)
+
+templ CategoryCard(cat models.CategoryView) {
+	<a href={ templ.SafeURL(fmt.Sprintf("/category/%s", cat.Name)) } class="category-card card-interactive">
+		<article>
+			<header class="flex justify-between items-center">
+				<span class="mono text-md">{ cat.Name }</span>
+				<span class="badge badge-blue">{ fmt.Sprintf("%d", cat.Count) }</span>
+			</header>
+			<p class="text-xs text-tertiary">
+				Last updated: { cat.LastNote.Format("Jan 2, 2006 15:04") }
+			</p>
+		</article>
+	</a>
+}

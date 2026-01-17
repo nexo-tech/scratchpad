@@ -1,0 +1,30 @@
+# Air configuration for Go + Templ hot reload
+
+root = "."
+tmp_dir = "tmp"
+
+[build]
+  # Generate Templ files, then build Go
+  cmd = "templ generate && go build -o ./tmp/main ./cmd/server"
+  bin = "./tmp/main"
+
+  # Delay before rebuilding (ms)
+  delay = 500
+
+  # Watch these file extensions
+  include_ext = ["go", "templ", "css"]
+
+  # Exclude directories
+  exclude_dir = ["tmp", "bin", "static", "node_modules", ".git"]
+
+  # Exclude generated Templ files from triggering rebuild
+  exclude_regex = ["_templ\\.go$"]
+
+[screen]
+  clear_on_rebuild = true
+
+[log]
+  time = false
+
+[misc]
+  clean_on_exit = true

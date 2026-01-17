@@ -1,0 +1,51 @@
+package layouts
+
+templ Base(title string) {
+	<!DOCTYPE html>
+	<html lang="en" data-theme="light">
+	<head>
+		<meta charset="UTF-8"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+		<title>{ title } - Scratchpad</title>
+
+		<!-- Google Fonts -->
+		<link rel="preconnect" href="https://fonts.googleapis.com"/>
+		<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
+
+		<!-- Pico CSS -->
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css"/>
+
+		<!-- TE Pico Theme -->
+		<link rel="stylesheet" href="/static/css/te-pico.css"/>
+	</head>
+	<body>
+		<header class="container">
+			@Nav()
+		</header>
+
+		<main class="container">
+			{ children... }
+		</main>
+
+		<footer class="container">
+			<hr/>
+			<p class="text-secondary text-sm"><small>Scratchpad - Knowledge pipeline for AI agents</small></p>
+		</footer>
+
+		<!-- HTMX -->
+		<script src="https://cdn.jsdelivr.net/npm/htmx.org@2.0.4/dist/htmx.min.js"></script>
+	</body>
+	</html>
+}
+
+templ Nav() {
+	<nav class="nav-terminal">
+		<div class="nav-container">
+			<a href="/" class="nav-logo contrast"><strong>SCRATCHPAD</strong></a>
+			<ul class="nav-links">
+				<li><a href="/">Categories</a></li>
+				<li><a href="/search">Search</a></li>
+			</ul>
+		</div>
+	</nav>
+}

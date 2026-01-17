@@ -1,0 +1,26 @@
+package components
+
+import (
+	"scratchpad/views/models"
+)
+
+templ NoteCard(note models.NoteView, renderedHTML string) {
+	<article class="note-card" id={ "note-" + note.ID }>
+		<header class="flex justify-between items-center">
+			<div class="flex items-center gap-2">
+				<span class="badge badge-gray">{ note.Category }</span>
+				<span class="text-xs text-tertiary">{ note.CreatedAt.Format("Jan 2, 2006 15:04") }</span>
+			</div>
+			<span class="text-xs text-tertiary mono">{ note.ID[:8] }...</span>
+		</header>
+		<div class="note-content">
+			@templ.Raw(renderedHTML)
+		</div>
+	</article>
+}
+
+templ NoteCardList(noteList []models.NoteView, renderedContent map[string]string) {
+	for _, note := range noteList {
+		@NoteCard(note, renderedContent[note.ID])
+	}
+}

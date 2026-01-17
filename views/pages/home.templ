@@ -1,0 +1,36 @@
+package pages
+
+import (
+	"fmt"
+	"scratchpad/views/components"
+	"scratchpad/views/layouts"
+	"scratchpad/views/models"
+)
+
+templ HomePage(categories []models.CategoryView, totalNotes int64) {
+	@layouts.Base("Categories") {
+		<section>
+			<header class="flex justify-between items-center mb-4">
+				<hgroup>
+					<h1>Categories</h1>
+					<p class="text-secondary">{ fmt.Sprintf("%d notes across %d categories", totalNotes, len(categories)) }</p>
+				</hgroup>
+			</header>
+
+			if len(categories) == 0 {
+				<article>
+					<p class="text-secondary">No notes yet. Push notes via the API:</p>
+					<pre><code>{ `curl -X POST http://localhost:7521/api/notes \
+  -H "Content-Type: application/json" \
+  -d '{"category": "my-category", "content": "# My Note\n\nContent here..."}'` }</code></pre>
+				</article>
+			} else {
+				<div class="category-grid">
+					for _, cat := range categories {
+						@components.CategoryCard(cat)
+					}
+				</div>
+			}
+		</section>
+	}
+}

@@ -1,0 +1,23 @@
+# Build outputs
+bin/
+tmp/
+
+# Generated Templ files (regenerated on build)
+*_templ.go
+
+# Go
+go.sum
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Environment
+.env
+.env.local

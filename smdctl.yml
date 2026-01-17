@@ -1,0 +1,8 @@
+name: scratchpad
+command: /home/snowbear/projects/scratchpad/bin/server
+workdir: /home/snowbear/projects/scratchpad
+environment:
+  MONGODB_URI: "mongodb://oracle-vm:27017"
+  PORT: "7521"
+restart: always
+description: Scratchpad - Knowledge pipeline for AI agents

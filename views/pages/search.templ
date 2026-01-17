@@ -1,0 +1,81 @@
+package pages
+
+import (
+	"fmt"
+	"scratchpad/views/components"
+	"scratchpad/views/layouts"
+	"scratchpad/views/models"
+)
+
+templ SearchPage(categories []models.CategoryView) {
+	@layouts.Base("Search") {
+		<section>
+			<header class="mb-4">
+				<h1>Search Notes</h1>
+			</header>
+
+			<form hx-get="/fragments/search" hx-target="#search-results" hx-trigger="submit" hx-indicator="#search-spinner">
+				<div class="grid">
+					<label>
+						<span class="label">Query</span>
+						<input
+							type="text"
+							name="q"
+							placeholder="Search notes..."
+							hx-get="/fragments/search"
+							hx-target="#search-results"
+							hx-trigger="keyup changed delay:300ms"
+							hx-indicator="#search-spinner"
+						/>
+					</label>
+					<label>
+						<span class="label">Category</span>
+						<select name="category">
+							<option value="">All categories</option>
+							for _, cat := range categories {
+								<option value={ cat.Name }>{ cat.Name }</option>
+							}
+						</select>
+					</label>
+				</div>
+				<div class="grid">
+					<label>
+						<span class="label">Since</span>
+						<input type="date" name="since"/>
+					</label>
+					<label>
+						<span class="label">Until</span>
+						<input type="date" name="until"/>
+					</label>
+				</div>
+				<div class="flex gap-2">
+					<button type="submit">
+						<span class="htmx-hide-on-request">Search</span>
+						<span id="search-spinner" class="htmx-indicator" aria-busy="true">Searching...</span>
+					</button>
+				</div>
+			</form>
+
+			<hr/>
+
+			<div id="search-results">
+				<p class="text-secondary">Enter a search query to find notes.</p>
+			</div>
+		</section>
+	}
+}
+
+templ SearchResults(noteList []models.NoteView, renderedContent map[string]string, query string) {
+	if len(noteList) == 0 {
+		if query != "" {
+			<p class="text-secondary">No results found for "{ query }".</p>
+		}
+	} else {
+		<p class="text-secondary mb-3">Found { fmt.Sprintf("%d", len(noteList)) } results</p>
+		<div class="stack">
+			for _, note := range noteList {
+				@components.NoteCard(note, renderedContent[note.ID])
+			}
+		</div>
+	}
+}

@@ -1,0 +1,47 @@
+package pages
+
+import (
+	"fmt"
+	"scratchpad/views/components"
+	"scratchpad/views/layouts"
+	"scratchpad/views/models"
+)
+
+templ CategoryPage(category string, noteList []models.NoteView, totalCount int64, renderedContent map[string]string) {
+	@layouts.Base(category) {
+		<section>
+			<header class="flex justify-between items-center mb-4">
+				<hgroup>
+					<h1 class="mono">{ category }</h1>
+					<p class="text-secondary">{ fmt.Sprintf("%d notes", totalCount) }</p>
+				</hgroup>
+				<a href="/" role="button" class="outline">Back</a>
+			</header>
+
+			if len(noteList) == 0 {
+				<article>
+					<p class="text-secondary">No notes in this category yet.</p>
+				</article>
+			} else {
+				<div id="notes-list" class="stack">
+					for _, note := range noteList {
+						@components.NoteCard(note, renderedContent[note.ID])
+					}
+				</div>
+
+				if len(noteList) < int(totalCount) {
+					<div class="flex justify-center mt-4">
+						<button
+							hx-get={ fmt.Sprintf("/fragments/notes?category=%s&offset=%d", category, len(noteList)) }
+							hx-target="#notes-list"
+							hx-swap="beforeend"
+							class="outline"
+						>
+							Load More
+						</button>
+					</div>
+				}
+			}
+		</section>
+	}
+}
