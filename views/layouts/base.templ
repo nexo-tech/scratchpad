@@ -32,8 +32,12 @@ templ Base(title string) {
 			<p class="text-secondary text-sm"><small>Scratchpad - Knowledge pipeline for AI agents</small></p>
 		</footer>
 
-		<!-- HTMX -->
+		<!-- HTMX + Hyperscript -->
 		<script src="https://cdn.jsdelivr.net/npm/htmx.org@2.0.4/dist/htmx.min.js"></script>
+		<script src="https://unpkg.com/hyperscript.org@0.9.13"></script>
+
+		<!-- Toast notification container -->
+		<div id="toast-container"></div>
 	</body>
 	</html>
 }

@@ -11,7 +11,7 @@ templ NoteCard(note models.NoteView, renderedHTML string) {
 				<span class="badge badge-gray">{ note.Category }</span>
 				<span class="text-xs text-tertiary">{ note.CreatedAt.Format("Jan 2, 2006 15:04") }</span>
 			</div>
-			<span class="text-xs text-tertiary mono">{ note.ID[:8] }...</span>
+			@CopyableID(note.ID)
 		</header>
 		<div class="note-content">
 			@templ.Raw(renderedHTML)
@@ -23,4 +23,16 @@ templ NoteCardList(noteList []models.NoteView, renderedContent map[string]string
 	for _, note := range noteList {
 		@NoteCard(note, renderedContent[note.ID])
 	}
+}
+
+// CopyableID renders a clickable ID that copies to clipboard and shows a toast
+templ CopyableID(id string) {
+	<span
+		class="copyable-id text-xs text-tertiary mono"
+		data-id={ id }
+		title="Click to copy full ID"
+		_={ `on click writeText(my @data-id) on navigator.clipboard then put '<div class="toast">Copied!</div>' into #toast-container then wait 1.5s then set #toast-container.innerHTML to ''` }
+	>
+		{ id[:8] }...
+	</span>
 }
